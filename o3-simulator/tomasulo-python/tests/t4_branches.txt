@@ -1,0 +1,25 @@
+# Beq taken and not taken, forward and backward branches, and two branches that
+# share BTB entry 4 (PC 4 and PC 12 in words).
+               # of rs         Cycles in EX    Cycles in Mem   # of FUs
+Integer adder   4               1                               1
+FP adder        2               2                               1
+FP multiplier   2               4                               1
+Load/store unit 2               1               2               1
+
+ROB entries = 32
+F2=0.5
+
+Addi R1, R0, 3
+Beq R0, R0, 1
+Addi R7, R0, 99
+Addi R2, R0, 0
+Beq R1, R0, 8
+Addi R2, R2, 1
+Add.d F1, F1, F2
+Addi R1, R1, -1
+Sub R3, R1, R2
+Add R4, R4, R1
+Add.d F3, F3, F1
+Addi R5, R5, 2
+Bne R1, R0, -9
+Addi R6, R0, 7

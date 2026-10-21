@@ -1,0 +1,20 @@
+# Loop with a backward Bne: predictor warm-up, loop exit misprediction, and
+# wrong-path stores that must never reach memory.
+               # of rs         Cycles in EX    Cycles in Mem   # of FUs
+Integer adder   3               1                               1
+FP adder        3               3                               1
+FP multiplier   2               4                               1
+Load/store unit 4               1               2               1
+
+ROB entries = 32
+F10=2.0
+Mem[4]=1.0, Mem[8]=2.0, Mem[12]=3.0, Mem[16]=4.0
+
+Addi R1, R0, 16
+Ld F1, 0(R1)
+Mult.d F2, F1, F10
+Add.d F3, F3, F1
+Sd F2, 40(R1)
+Addi R1, R1, -4
+Bne R1, R0, -6
+Sd F3, 100(R0)

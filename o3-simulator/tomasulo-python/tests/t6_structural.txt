@@ -1,0 +1,19 @@
+# One entry per reservation station, a 4-entry ROB and a 1-entry load/store queue;
+# also a slow older writer of F5 that finishes after a younger writer (WAW).
+               # of rs         Cycles in EX    Cycles in Mem   # of FUs
+Integer adder   1               1                               1
+FP adder        1               2                               1
+FP multiplier   1               10                              1
+Load/store unit 1               1               2               1
+
+ROB entries = 4
+F1=3.0, F2=4.0
+Mem[0]=1.25
+
+Mult.d F5, F1, F2
+Add.d F5, F1, F2
+Addi R1, R0, 1
+Addi R2, R0, 2
+Add.d F6, F5, F5
+Ld F7, 0(R0)
+Sd F6, 4(R0)

@@ -1,0 +1,26 @@
+# Store-to-load forwarding (data ready, and data still pending), a load that bypasses
+# an unresolved store safely, and a load that bypasses an aliasing store and must be
+# squashed and re-executed. Mult.d at the head keeps the first stores uncommitted.
+               # of rs         Cycles in EX    Cycles in Mem   # of FUs
+Integer adder   4               1                               1
+FP adder        2               2                               1
+FP multiplier   2               4                               1
+Load/store unit 8               1               2               1
+
+ROB entries = 16
+F1=1.5, F3=7.25
+Mem[12]=9.0, Mem[16]=2.0
+
+Mult.d F8, F1, F1
+Sd F1, 8(R0)
+Ld F2, 8(R0)
+Sd F8, 24(R0)
+Ld F9, 24(R0)
+Addi R1, R0, 4
+Addi R1, R1, 4
+Addi R1, R1, 4
+Sd F3, 0(R1)
+Ld F4, 16(R0)
+Ld F5, 12(R0)
+Add.d F6, F5, F4
+Sd F6, 20(R0)

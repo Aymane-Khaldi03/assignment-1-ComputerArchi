@@ -1,0 +1,22 @@
+# RAW, WAR and WAW hazards inside one issue group, and writes to the hardwired R0.
+               # of rs         Cycles in EX    Cycles in Mem   # of FUs
+Integer adder   4               1                               1
+FP adder        3               3                               1
+FP multiplier   2               6                               1
+Load/store unit 3               1               2               1
+
+ROB entries = 32
+F2=1.25, F3=2.5
+
+Addi R1, R0, 5
+Add R2, R1, R1
+Addi R1, R2, 1
+Sub R3, R1, R2
+Addi R0, R3, 7
+Add R4, R0, R3
+Add.d F1, F2, F3
+Mult.d F1, F1, F1
+Sub.d F4, F1, F2
+Add.d F2, F4, F4
+Sd F2, 16(R0)
+Sd F1, 20(R0)

@@ -1,0 +1,29 @@
+>> Instruction Buffer --> list (instructions)
+Decoded input lines: op | rd | srcs | base | data | imm | text
+
+>> RATs --> list (rat_int, rat_fp)
+None (value is in the register file) or the ROB entry that will write the register
+
+>> Reservation Station --> list per unit (int_adder, fp_adder, fp_multi)
+busy | op | tag_1st | value_1st | valid_1st | ready_1st | tag_2nd | value_2nd | valid_2nd | ready_2nd | dest_tag
+(tag_* = producing ROB entry, ready_* = cycle the value arrived, dest_tag = own ROB entry)
+
+>> Functional Unit --> list per unit (int adder unpipelined, FP adder / multiplier pipelined)
+pipelined | busy_until | last_start | owner
+
+>> Ld/Sd --> list in program order (ld_sd_queue)
+ld_sd_tag | op | address | addr_cycle | dest_tag | immediate | reg_tag | reg_value | valid | base_ready | data | data_tag | data_valid | data_ready | leave_cycle
+
+>> Address adder --> functional unit list (addr_units), dedicated to the ld_sd_queue
+
+>> Memory port (single-ported, non-pipelined)
+mem_busy_until | mem_owner
+
+>> cdb
+one broadcast per cycle (wb.py)
+
+>> BTB --> 8 entries indexed by PC[2:0] (word address), one-bit predictor
+valid | tag | target | taken
+
+>> ROB --> list in program order, head at index 0
+ROB_tag | PC | value | dest_tag | issue | exe | mem | cdb | commit | seq | result_cycle | predicted_next | mispredicted | resolved | address | src | fault

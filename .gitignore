@@ -1,0 +1,6 @@
+branch-prediction/cbp2-infrastructure-v2/build/
+branch-prediction/cbp2-infrastructure-v2/src/predict
+branch-prediction/cbp2-infrastructure-v2/src/predict_extra_credit
+branch-prediction/cbp2-infrastructure-v2/src/compress/ct
+branch-prediction/cbp2-infrastructure-v2/tests/test_example
+__pycache__/

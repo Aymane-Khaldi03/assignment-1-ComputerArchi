@@ -1,0 +1,23 @@
+# Independent instructions: shows how the issue width changes ISSUE and COMMIT.
+               # of rs         Cycles in EX    Cycles in Mem   # of FUs
+Integer adder   4               1                               1
+FP adder        4               3                               1
+FP multiplier   4               5                               1
+Load/store unit 4               1               1               1
+
+ROB entries = 32
+Issue width = 2
+F10=1.5, F11=2.5, F12=4.0, F13=0.5
+
+Addi R1, R0, 1
+Addi R2, R0, 2
+Add.d F1, F10, F11
+Mult.d F2, F12, F13
+Addi R3, R0, 3
+Sub.d F3, F10, F11
+Mult.d F4, F10, F12
+Addi R4, R0, 4
+Sd F10, 0(R0)
+Sd F11, 4(R0)
+Sd F12, 8(R0)
+Sd F13, 12(R0)
